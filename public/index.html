@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+</head>
+<body>
+    <h1>Weather App</h1>
+    <form id="weather-form">
+        <input type="text" id="city-input"
+         placeholder="Enter your city">
+         <button type="submit">Send</button>
+    </form>
+<div id="city"></div>
+    <script>
+        document.getElementById("weather-form").onsubmit=(e)=>{
+            e.preventDefault();
+            const city=document.getElementById("city-input").value;
+        fetchWeather(city);
+         }
+         async function fetchWeather(city) {
+            const responce=await fetch(`/api/weather?city=${city}`);
+            const data=await responce.json();
+            document.getElementById("city").innerHTML=
+            `<h1>weather of ${data.location.name}</h1>
+            <h2> Temp is ${data.current.temperature}</h2>
+            <h2> weather descriptions is ${data.current.weather_descriptions}</h2>
+            `
+            ;
+         }
+    </script>
+</body>
+</html>
